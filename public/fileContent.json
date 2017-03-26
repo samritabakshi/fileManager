@@ -1,0 +1,68 @@
+{
+    "Folder-1": {
+        "files": [{
+            "name": "File-1",
+            "size": "200000",
+            "date": "2016-06-30",
+            "MimeType": "file"
+        }, {
+            "name": "File-2",
+            "size": "330033",
+            "date": "2016-06-30",
+            "MimeType": "file"
+        }, {
+            "name": "File-3",
+            "size": "200000",
+            "date": "2016-06-30",
+            "MimeType": "file"
+        }, {
+            "name": "File-4",
+            "size": "330033",
+            "date": "2016-06-30",
+            "MimeType": "file"
+        }, {
+            "name": "File-5",
+            "size": "200000",
+            "date": "2016-06-30",
+            "MimeType": "file"
+        }, {
+            "name": "File-6",
+            "size": "330033",
+            "date": "2016-06-30",
+            "MimeType": "file"
+        }]
+    },
+    "Folder-2": {
+        "files": [{
+            "name": "File-7",
+            "size": "200000",
+            "date": "2016-06-30",
+            "MimeType": "file"
+        }, {
+            "name": "File-8",
+            "size": "330033",
+            "date": "2016-06-30",
+            "MimeType": "file"
+        }, {
+            "name": "File-9",
+            "size": "200000",
+            "date": "2016-06-30",
+            "MimeType": "file"
+        }, {
+            "name": "File-10",
+            "size": "330033",
+            "date": "2016-06-30",
+            "MimeType": "file"
+        }, {
+            "name": "File-5",
+            "size": "200",
+            "date": "2016-05-30",
+            "MimeType": "file"
+        }, {
+            "name": "File-11",
+            "size": "330033",
+            "date": "2016-06-30",
+            "MimeType": "file"
+        }]
+    }
+}

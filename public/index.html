@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>File Manager</title>
+    <base href="/" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <link rel='stylesheet' href='//fonts.googleapis.com/css?family=Open+Sans:400,700'>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/scripts/angular-material/angular-material.min.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+    <style>
+    .padding-inner {
+        padding: 1%;
+    }
+    
+    .iconset {
+        padding: 10px;
+    }
+    
+    .col-120 {
+        width: 100px;
+        max-height: 100px;
+        float: left;
+        margin-bottom: 9px;
+        margin-right: 9px;
+    }
+    
+    .col-120:last-child {
+        margin-right: 0;
+    }
+    
+    .noselect {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    
+    .iconset .thumbnail {
+        border-radius: 0;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+        padding: 10px 0;
+        border: none;
+        background: none;
+    }
+    
+    .table-files .selected,
+    .iconset .thumbnail.selected {
+        background: #2196F3;
+    }
+    
+    .iconset .thumbnail.selected,
+    .table-files .selected td,
+    .table-files .selected td a {
+        color: #fff;
+    }
+    
+    .iconset .thumbnail .item-icon {
+        font-size: 32px;
+    }
+    
+    .grid {
+        flex-wrap: wrap;
+        width: 100px;
+        display: flex;
+    }
+    
+    .layout-wrap {
+        -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    }
+    </style>
+</head>
+
+<body ng-app="materialApp" layout="row" ng-controller="appCtrl as app">
+    <section layout="row" flex>
+        <md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+            <md-toolbar class="md-theme-indigo">
+                <h1 class="md-toolbar-tools"><span class="glyphicon glyphicon-folder-open"></span> &nbsp;&nbsp; &nbsp;File Directory</h1>
+            </md-toolbar>
+            <md-content>
+                <md-list-item ng-repeat="f in folders">
+                    <span class="glyphicon glyphicon-folder-close"></span>&nbsp;&nbsp;
+                    <p ng-click="selectFolder(f)" href="/home">{{f.name}}</p>
+                </md-list-item>
+            </md-content>
+        </md-sidenav>
+        <div layout="column" layout-fill>
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h2 md-truncate flex>{{selectedFolder}}</h2>
+                    <md-button ng-click="addFolder()"> <span class="glyphicon glyphicon-file"></span>
+                    </md-button> 
+                    <md-button ng-click="addFolder()"><span class="glyphicon glyphicon-folder-plus"></span></md-button>
+                    <md-icon><span class="glyphicon glyphicon-search"></span></md-icon>&nbsp;&nbsp;&nbsp;
+                    <md-input-container style="padding-top: 3%">
+                        <ff-file-browser fileSearch="value
+" mode="search"></ff-file-browser>
+                    </md-input-container>
+                </div>
+            </md-toolbar>
+            <md-content flex layout-padding>
+                <div ui-view></div>
+            </md-content>
+        </div>
+        <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right">
+            <md-toolbar class="md-theme-light">
+                <h1 class="md-toolbar-tools">Sidenav Right</h1>
+            </md-toolbar>
+            <md-content layout-padding>
+                <form>
+                    <md-input-container>
+                        <label for="testInput">Test input</label>
+                        <input type="text" id="testInput" ng-model="data" md-autofocus>
+                    </md-input-container>
+                </form>
+                <md-button ng-click="close()" class="md-primary">
+                    Close Sidenav Right
+                </md-button>
+            </md-content>
+        </md-sidenav>
+    </section>
+    <script src="/scripts/angular/angular.min.js"></script>
+    <script src="/scripts/angular-animate/angular-animate.min.js"></script>
+    <script src="/scripts/angular-aria/angular-aria.min.js"></script>
+    <script src="/scripts/angular-material/angular-material.min.js"></script>
+    <script type="text/javascript" src="/scripts/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="modules/cards/controllers/cardsCtrl.js"></script>
+    <script src="modules/cards/services/cardsService.js"></script>
+    <script src="modules/list/controllers/listCtrl.js"></script>
+    <script src="modules/list/services/listService.js"></script>
+    <script src="modules/tabs/controllers/tabsCtrl.js"></script>
+    <script src="contentService.js"></script>
+    <script src="modules/tabs/services/tabsService.js"></script>
+    <script src="app.controller.js"></script>
+    <script src="app.js"></script>
+    <script src="app.routes.js"></script>
+</body>
+
+</html>

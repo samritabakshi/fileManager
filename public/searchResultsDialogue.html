@@ -1,0 +1,31 @@
+<md-dialog style=" width: 50%;">
+    <form ng-cloak>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Results</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <md-subheader class="md-no-sticky">
+                    <h3><b>{{result.length}}</b> File(s) found</h3></md-subheader>
+                <md-list-item class="secondary-button-padding" ng-repeat="x in result" ng-if="result.length">
+                    <p>{{$index+1}}. &nbsp;{{ x.file }}&nbsp;&nbsp;({{x.folderName}}) </p>
+                    <md-button class="md-secondary"> View
+                        <ff-file-browser browse="x.file" folder="x.folderName" mode="fileDisplay"></ff-file-browser>
+                    </md-button>
+                </md-list-item>
+                <span ng-if="!result.length"><a>No Results Found!!</a></span>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button ng-click="answer('not useful')">
+                OK
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

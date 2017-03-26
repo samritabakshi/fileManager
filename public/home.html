@@ -1,0 +1,21 @@
+<div class='md-padding' layout="row" layout-wrap>
+    <md-card ng-repeat="f in files[selectedFolder].files" style="background: rgba(255, 255, 255, 0.1)" ng-if="selectedFolder" ng-right-click="showMenu()" context-menu-trigger="$openContextMenu($event)">
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-headline"> <span class="glyphicon glyphicon-file" style="font-size: 3em;"></span></span>
+                <center><span class="md-subhead">{{f.name}}</span></center>
+                <ff-file-browser browse="f.name" folder="selectedFolder" mode="fileDisplay"></ff-file-browser>
+            </md-card-title-text>
+            <md-card-title-media>
+            </md-card-title-media>
+        </md-card-title>
+    </md-card>
+    <md-card ng-repeat="f in folders" style="width: 8em;background: rgba(255, 255, 255, 0.1)" ng-if="!selectedFolder" ng-click="selectFolder(f)">
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-headline"> <span class="glyphicon glyphicon-folder-open" style="font-size: 3em;"></span></span>
+                <center><span class="md-subhead">{{f.name}}</span></center>
+            </md-card-title-text>
+        </md-card-title>
+    </md-card>
+</div>
