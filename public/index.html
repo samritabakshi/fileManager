@@ -99,13 +99,10 @@
             <md-toolbar>
                 <div class="md-toolbar-tools">
                     <h2 md-truncate flex>{{selectedFolder}}</h2>
-                    <md-button ng-click="addFolder()"> <span class="glyphicon glyphicon-file"></span>
-                    </md-button> 
-                    <md-button ng-click="addFolder()"><span class="glyphicon glyphicon-folder-plus"></span></md-button>
+                    <ff-file-browser mode="addFileToFolder"></ff-file-browser>&nbsp;&nbsp;
                     <md-icon><span class="glyphicon glyphicon-search"></span></md-icon>&nbsp;&nbsp;&nbsp;
                     <md-input-container style="padding-top: 3%">
-                        <ff-file-browser fileSearch="value
-" mode="search"></ff-file-browser>
+                        <ff-file-browser fileSearch="value" mode="search"></ff-file-browser>
                     </md-input-container>
                 </div>
             </md-toolbar>
@@ -145,6 +142,7 @@
     <script src="app.controller.js"></script>
     <script src="app.js"></script>
     <script src="app.routes.js"></script>
+
 </body>
 
 </html>

@@ -1,5 +1,5 @@
 <div class='md-padding' layout="row" layout-wrap>
-    <md-card ng-repeat="f in files[selectedFolder].files" style="background: rgba(255, 255, 255, 0.1)" ng-if="selectedFolder" ng-right-click="showMenu()" context-menu-trigger="$openContextMenu($event)">
+    <md-card ng-repeat="f in files" style="background: rgba(255, 255, 255, 0.1)" ng-if="selectedFolder" ng-right-click="showMenu()" context-menu-trigger="$openContextMenu($event)">
         <md-card-title>
             <md-card-title-text>
                 <span class="md-headline"> <span class="glyphicon glyphicon-file" style="font-size: 3em;"></span></span>

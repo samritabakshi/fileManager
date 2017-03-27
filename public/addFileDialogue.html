@@ -1,0 +1,55 @@
+<md-dialog style=" width: 50%;">
+    <form ng-cloak>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Add File</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <md-content layout-gt-sm="row" layout-padding>
+                    <div>
+                        <md-autocomplete md-selected-item="selectedItem" md-search-text="searchText" md-items="item in folderSearch
+(searchText)" md-item-text="item.name" placeholder="Search Folder" md-no-cache="true">
+                            <md-item-template>
+                                <span>{{item.name}}  </span>
+                            </md-item-template>
+                            <md-not-found>
+                                No matches found.
+                            </md-not-found>
+                        </md-autocomplete>
+                        <md-input-container>
+                            <label>Name</label>
+                            <input ng-model="file.name" type="text">
+                        </md-input-container>
+                        <md-input-container>
+                            <label>Size</label>
+                            <input ng-model="file.size" type="text">
+                        </md-input-container>
+                        <br>
+                        <md-input-container>
+                            <label>Type</label>
+                            <input ng-model="file.type" type="text">
+                        </md-input-container>
+                        <md-input-container>
+                            <label>Date</label>
+                            <md-datepicker ng-model="file.date"></md-datepicker>
+                        </md-input-container>
+                    </div>
+                </md-content>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button ng-click="create()" class="md-raised md-primary" ng-if="file.name && selectedItem">
+                Create
+            </md-button>
+            <md-button ng-click="cancel()" class="md-raised md-warn">
+                Cancel
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

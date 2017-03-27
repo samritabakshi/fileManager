@@ -13,19 +13,19 @@
             <div class="md-dialog-content">
                 <md-list-item class="secondary-button-padding">
                     <p>Name</p>
-                    <md-button class="md-secondary"><b>{{contents[0].name}}</b></md-button>
+                    <md-button class="md-secondary"><b>{{contents.name}}</b></md-button>
                 </md-list-item>
                 <md-list-item class="secondary-button-padding">
                     <p>Size</p>
-                    <md-button class="md-secondary"><b> {{contents[0].size}}</b></md-button>
+                    <md-button class="md-secondary"><b> {{contents.size}}</b></md-button>
                 </md-list-item>
                 <md-list-item class="secondary-button-padding">
-                    <content[0]>Date</p>
-                        <md-button class="md-secondary"><b> {{contents[0].date}}</b></md-button>
+                    <content>Date</p>
+                        <md-button class="md-secondary"><b> {{contents.date | date: 'dd-MM-yyyy'}}</b></md-button>
                 </md-list-item>
                 <md-list-item class="secondary-button-padding">
                     <p>MIME Type</p>
-                    <md-button class="md-secondary"><b> {{contents[0].MimeType}}</b></md-button>
+                    <md-button class="md-secondary"><b> {{contents.MimeType}}</b></md-button>
                 </md-list-item>
             </div>
         </md-dialog-content>

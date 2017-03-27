@@ -1,69 +1,25 @@
 angular.module('appCtrl', ["FolderStructure"])
     .controller('appCtrl', function($stateParams, $rootScope, $scope, $timeout, $mdSidenav, $log, $mdToast, $mdDialog, Structure, $q) {
-        $scope.folders = [
-            { name: "Folder-1" },
-            { name: "Folder-2" },
-            { name: "Folder-3" },
-            { name: "Folder-4" },
-            { name: "Folder-5" },
-            { name: "Folder-6" },
-            { name: "Folder-7" },
-            { name: "Folder-8" },
-            { name: "Folder-9" },
-            { name: "Folder-10" },
-            { name: "Folder-11" },
-            { name: "Folder-12" },
-        ];
-        $scope.files = {
-            "Folder-1": {
-                "files": [{
-                    "name": "File-1",
-                    "size": "200000", // bytes
-                    "date": "2016-06-30",
-                    "MimeType": "image/png",
-                }, {
-                    "name": "File-2",
-                    "size": "330033", // bytes
-                    "date": "2016-06-30",
-                    "MimeType": "image/jpg"
-                }, {
-                    "name": "File-3",
-                    "size": "200000", // bytes
-                    "date": "2016-06-30",
-                    "MimeType": "image/png",
-                }, {
-                    "name": "File-4",
-                    "size": "330033", // bytes
-                    "date": "2016-06-30",
-                    "MimeType": "image/jpg"
-                }, {
-                    "name": "File-5",
-                    "size": "200000", // bytes
-                    "date": "2016-06-30",
-                    "MimeType": "image/png",
-                }, {
-                    "name": "File-6",
-                    "size": "330033", // bytes
-                    "date": "2016-06-30",
-                    "MimeType": "image/jpg"
-                }]
-            }
-        };
-        self = this;
+        init();
 
-        // Update title using rootscope
-        self.updateTitle = function() {
+        function init() {
+            Structure.getFolders().then(function(_data) {
+                $scope.folders = _data;
+                Structure.getFiles(_data[0]).then(function(_data) {
+                    $scope.files = _data;
+                })
+            })
+        }
+        $scope.updateTitle = function() {
             $rootScope.title = $stateParams.title;
         }
-
-        // Run updateTitle on each state change
         $rootScope.$on('$stateChangeSuccess', self.updateTitle);
 
-        self.toggleLeft = function() {
+        $scope.toggleLeft = function() {
             $mdSidenav('left').toggle();
         }
 
-        self.toggleRight = function() {
+        $scope.toggleRight = function() {
             $mdSidenav('right').toggle();
         }
         $scope.toggleLeft = buildDelayedToggler('left');
@@ -71,10 +27,10 @@ angular.module('appCtrl', ["FolderStructure"])
         $scope.isOpenRight = function() {
             return $mdSidenav('right').isOpen();
         };
-        self.createFile = function(_folderName) {
+        $scope.createFile = function(_folderName) {
             $scope.files[_folderName].files.push($scope.newFile)
         };
-        self.addFolder = function(_folderName) {
+        $scope.addFolder = function(_folderName) {
             var obj = { name: _folderName }
             var index = $scope.folders.indexOf(obj);
             if (index == -1)
@@ -94,6 +50,9 @@ angular.module('appCtrl', ["FolderStructure"])
 
         $scope.selectFolder = function(_folderInfo) {
             $scope.selectedFolder = _folderInfo.name
+            Structure.getFiles(_folderInfo).then(function(data) {
+                $scope.files = data;
+            })
         };
 
         function debounce(func, wait, context) {
@@ -110,10 +69,6 @@ angular.module('appCtrl', ["FolderStructure"])
             };
         }
 
-        /**
-         * Build handler to open/close a SideNav; when animation finishes
-         * report completion in console
-         */
         function buildDelayedToggler(navID) {
             return debounce(function() {
                 // Component lookup should always be available since we are not using `ng-if`
@@ -168,6 +123,8 @@ angular.module('appCtrl', ["FolderStructure"])
                     return 'home.html'
                 else if ($attr.mode == 'search')
                     return "searchFile.html"
+                else if ($attr.mode == 'addFileToFolder')
+                    return "addFile.html"
             },
             scope: {
                 browse: "=",
@@ -181,7 +138,32 @@ angular.module('appCtrl', ["FolderStructure"])
                     querySearch(scope.value).then(function(_results) {
                         showResults(_results)
                     })
+                }
+                scope.addFile = function() {
+                    showAddFile();
+
                 };
+
+                function showAddFile() {
+                    $mdDialog.show({
+                        templateUrl: 'addFileDialogue.html',
+                        controller: 'addFileController',
+                        parent: angular.element(document.body)
+
+                    })
+                }
+
+
+                function showResults(_results) {
+                    $mdDialog.show({
+                        templateUrl: 'searchResultsDialogue.html',
+                        controller: 'resultController',
+                        parent: angular.element(document.body),
+                        locals: {
+                            result: _results
+                        } // Only for -xs, -sm breakpoints.
+                    })
+                }
 
                 function showResults(_results) {
                     $mdDialog.show({
@@ -327,4 +309,30 @@ angular.module('appCtrl', ["FolderStructure"])
         $scope.answer = function(answer) {
             $mdDialog.hide(answer);
         };
+    })
+    .controller("addFileController", function($scope, $mdDialog, $q, Structure) {
+        init()
+
+        function init() {
+            $scope.addFile = {};
+        }
+        $scope.folderSearch = function(query) {
+            var defer = $q.defer();
+            Structure.searchFolder(query).then(function(d) {
+                defer.resolve(d);
+            }, function() {
+                defer.reject();
+            });
+            return defer.promise;
+        };
+        $scope.create = function() {
+            Structure.addFile($scope.selectedItem, $scope.file).then(function(d) {
+                $mdDialog.hide();
+            })
+        }
+
+        $scope.cancel = function() {
+            $mdDialog.cancel();
+        };
+
     })
